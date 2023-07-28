@@ -102,3 +102,19 @@
     display: grid;
     grid-template-columns: repeat(3, auto);
 }
+
+[class*="history-item"].strikeThru {
+    text-decoration: line-through;
+}
+
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline {
+    display: inline;
+}
