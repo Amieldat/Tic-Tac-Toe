@@ -1,7 +1,11 @@
 const cells = document.querySelectorAll(".cell");
+const historyContainer = document.getElementById('history');
 const board = document.getElementById('board');
 const statusText = document.querySelector("#statusText");
 const resetBtn = document.querySelector("#resetBtn");
+const prevNextBtnContainer = document.getElementById('prevNextBtnContainer');
+const previousBtn = document.querySelector("#previousBtn");
+const nextBtn = document.querySelector("#nextBtn");
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -24,7 +28,20 @@ const dScore = document.querySelector(".d-score");
 let xPoints = 0
 let oPoints = 0
 let dPoints = 0
-
+let history = [];
+const positions = {
+    "0": "top left",
+    "1": "top center",
+    "2": "top right",
+    "3": "middle left",
+    "4": "middle",
+    "5": "middle right",
+    "6": "bottom left",
+    "7": "bottom center",
+    "8": "bottom right"
+};
+let previousContainer = [];
+let nextContainer = [];
 
 initializeGame();
 
@@ -39,6 +56,11 @@ function initializeGame() {
 
 function resetGame(){
     options = ["", "", "", "", "", "", "", "", ""];
+    history = [];
+    nextContainer = [];
+    previousContainer = [];
+    prevNextBtnContainer.style.display = "none" 
+    historyContainer.innerHTML = "<p>History</p>"
     statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
     cells.forEach(cell => cell.className = "cell");
     cells.forEach(cell => cell.addEventListener("click", cellClicked, {once: true}))
@@ -59,7 +81,38 @@ function cellClicked(e){
     function updateCell(cell, currentClass) {
         cell.classList.add(currentClass)
         options[cell.getAttribute("cellindex")] = currentClass
+        history.push(`${currentClass} - ${positions[cell.getAttribute("cellindex")]}`)
+        historyContainer.innerHTML += `<p class="history-item-${currentClass}-${cell.getAttribute("cellindex")}">${currentClass} - ${positions[cell.getAttribute("cellindex")]}</p>`
+        nextContainer.push({symbol: currentClass, position: cell.getAttribute("cellindex")});
     }
+
+    function previousMove() {
+        if (nextContainer.length == 1) {
+            previousBtn.style.display = "none"
+        }
+        if (nextContainer.length > 0) {
+            nextBtn.style.display = "inline" 
+            let lastNext = nextContainer.pop()
+            previousContainer.push(lastNext)
+            document.querySelector(`[cellindex="${lastNext["position"]}"]`).classList.remove(lastNext["symbol"])
+            document.querySelector(`.history-item-${lastNext["symbol"]}-${lastNext["position"]}`).classList.add("strikeThru")
+        }
+    }
+    previousBtn.addEventListener("click", previousMove);
+
+    function nextMove() {
+        if (previousContainer.length == 1) {
+            nextBtn.style.display = "none"
+        }
+        if (previousContainer.length > 0) {
+            previousBtn.style.display = "inline" 
+            let lastPrev = previousContainer.pop()
+            nextContainer.push(lastPrev);
+            document.querySelector(`[cellindex="${lastPrev["position"]}"]`).classList.add(lastPrev["symbol"])
+            document.querySelector(`.history-item-${lastPrev["symbol"]}-${lastPrev["position"]}`).classList.remove("strikeThru")
+        } 
+    }
+    nextBtn.addEventListener("click", nextMove);
 
     function swapTurns() {
         circleTurn = !circleTurn
@@ -98,6 +151,7 @@ function cellClicked(e){
         if(roundWon){
             statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()} wins!`;
             running = false;
+            prevNextBtnContainer.style.display = "block"
 
             if(circleTurn){
                 oPoints++
@@ -112,6 +166,7 @@ function cellClicked(e){
         else if(!options.includes("")){
             statusText.textContent = `Draw!`;
             running = false;
+            prevNextBtnContainer.style.display = "block"
             dPoints++
             dScore.innerHTML = dPoints
         }
