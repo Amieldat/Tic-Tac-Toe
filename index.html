@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic Tac Toe</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="flexbox">
-      <div id="history"><p>History</p></div>
 
-      <div id="gameContainer">
-        <h1>Tic Tac Toe</h1>
-        <div class="board" id="board">
-          <div cellIndex="0" class="cell"></div>
-          <div cellIndex="1" class="cell"></div>
-          <div cellIndex="2" class="cell"></div>
-          <div cellIndex="3" class="cell"></div>
-          <div cellIndex="4" class="cell"></div>
-          <div cellIndex="5" class="cell"></div>
-          <div cellIndex="6" class="cell"></div>
-          <div cellIndex="7" class="cell"></div>
-          <div cellIndex="8" class="cell"></div>
-        </div>
-        <h2 id="statusText"></h2>
-        <button id="resetBtn">Reset</button>
-        <div id="prevNextBtnContainer" style="display: none">
-          <button id="previousBtn">Previous</button>
-          <button id="nextBtn" style="display: none">Next</button>
-          <button id="newGameBtn">New Game</button>
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tic Tac Toe</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <div class="flexbox">
+    <div id="history">
+      <p>History</p>
+    </div>
+
+    <div id="gameContainer">
+      <h1 data-text="&nbsp;Tic Tac Toe&nbsp;">&nbsp;Tic Tac Toe&nbsp;</h1>
+      <div class="board" id="board">
+        <div cellIndex="0" class="cell"></div>
+        <div cellIndex="1" class="cell"></div>
+        <div cellIndex="2" class="cell"></div>
+        <div cellIndex="3" class="cell"></div>
+        <div cellIndex="4" class="cell"></div>
+        <div cellIndex="5" class="cell"></div>
+        <div cellIndex="6" class="cell"></div>
+        <div cellIndex="7" class="cell"></div>
+        <div cellIndex="8" class="cell"></div>
       </div>
-      <div id="scoreBoard">
-        <p>Score:</p>
-        <p>X: <span class="x-score"></span></p>
-        <p>O: <span class="o-score"></span></p>
-        <p>Draw: <span class="d-score"></span></p>
+      <h2 id="statusText"></h2>
+      <div id="allBtnContainer">
+        <a href="#" id="resetBtn"><span></span><span></span><span></span><span></span> Reset</a>
+        <div id="prevNextBtnContainer">
+          <a href="#" id="previousBtn" class="show"><span></span><span></span><span></span><span></span> Previous</a>
+          <a href="#" id="nextBtn"><span></span><span></span><span></span><span></span> Next</a>
+          <a href="#" id="newGameBtn"><span></span><span></span><span></span><span></span> New Game</a>
+        </div>
       </div>
     </div>
-    <script src="./scripts.js"></script>
-  </body>
+    <div id="scoreBoard">
+      <p>Score:</p>
+      <p>X: <span class="x-score"></span></p>
+      <p>O: <span class="o-score"></span></p>
+      <p>Draw: <span class="d-score"></span></p>
+    </div>
+  </div>
+  <div id="modal" class="show">
+    <h2>Tic Tac Toe</h2>
+    <div>
+      <span class="xPlayer">X</span>
+      <span class="oPlayer">O</span>
+    </div>
+    <div class="startG">
+      <span id="startG">Start Game</span>
+      <span></span><span></span>
+    </div>
+  </div>
+  <script src="./scripts.js"></script>
+</body>
+
 </html>
