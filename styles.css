@@ -20,6 +20,7 @@
 #gameContainer{
     font-family: "Permanent Marker", cursive;
     text-align: center;
+    color: white;
 }
 .board {
     display: grid;
@@ -30,6 +31,7 @@
     grid-template-columns: repeat(3, auto);
     width: 250px;
     margin: auto;
+    gap: 5px;
 }
 
 .cell.x,
@@ -117,4 +119,112 @@
 
 .d-inline {
     display: inline;
+}
+
+body {
+    background-image: url('https://blog.sklambert.com/wp-content/uploads/2012/09/bg.png');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+  }
+  
+h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+h2#statusText {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: white;
+  }
+  
+#resetBtn {
+    font-size: 18px;
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+  }
+  
+  #resetBtn:hover {
+    background-color: #45a049;
+  }
+  
+  #history {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    padding-left: 20px; 
+    color: white;
+  }
+  
+
+  p[class^="history-item"] {
+    margin: 5px 0;
+  }
+  
+
+  p[class^="history-item"].strikeThru {
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+  
+  /* design lang toh sa buttons*/
+  button#previousBtn,
+  button#nextBtn {
+    font-size: 16px;
+    padding: 8px 12px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+  }
+  
+  button#previousBtn:hover,
+  button#nextBtn:hover {
+    background-color: #1976d2;
+  }
+  
+  
+  .cell {
+    background-color: #f7f7f7;
+    background-image: linear-gradient(
+      45deg,
+      rgba(0, 0, 0, 0.05) 25%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.05) 75%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
+    background-size: 8px 8px;
+  }
+  
+  /* new game button toh pre*/
+  #newGameBtn {
+    font-size: 18px;
+    padding: 8px 16px;
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s;
+}
+
+#newGameBtn:hover {
+    background-color: #f44336;
 }
