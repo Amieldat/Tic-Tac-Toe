@@ -42,11 +42,31 @@ const positions = {
 };
 let previousContainer = [];
 let nextContainer = [];
+const modal = document.getElementById("modal")
+const xPlayer = document.querySelector(".xPlayer")
+const oPlayer = document.querySelector(".oPlayer")
+const startGameOuter = document.querySelector(".startG")
+const startGame = document.querySelector("#startG")
 
-initializeGame();
 
-function initializeGame() {
-    circleTurn = false
+
+modal.addEventListener("click", function(e) {
+    if (e.target.classList.contains("xPlayer")) {
+        initializeGame(false);
+        startGameOuter.classList.add("show")
+    } 
+    if (e.target.classList.contains("oPlayer")) {
+        initializeGame(true);
+        startGameOuter.classList.add("show")
+    }
+    if (circleTurn != undefined && e.target.id == "startG") {
+        this.classList.remove("show")
+    }
+})
+
+
+function initializeGame(isO) {
+    circleTurn = isO
     cells.forEach(cell => cell.addEventListener("click", cellClicked, {once: true}))
     statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
     resetBtn.addEventListener("click", resetGame);
@@ -59,12 +79,51 @@ function resetGame(){
     history = [];
     nextContainer = [];
     previousContainer = [];
-    prevNextBtnContainer.style.display = "none" 
+    toggleDisplay(prevNextBtnContainer)
+    nextBtn.classList.remove("show")
+    previousBtn.classList.add("show")
     historyContainer.innerHTML = "<p>History</p>"
     statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
     cells.forEach(cell => cell.className = "cell");
     cells.forEach(cell => cell.addEventListener("click", cellClicked, {once: true}))
     running = true;
+}
+
+function newGame() {  
+    resetAllData();
+    initializeGame();
+    modal.classList.add("show")
+    startGame.classList.remove("show")
+}
+
+function toggleDisplay(element) {
+   if (!element.classList.contains("show") && !running) {
+    element.classList.add("show")
+   } else {
+    element.classList.remove("show")
+   }
+}
+const newGameBtn = document.getElementById('newGameBtn');
+newGameBtn.addEventListener('click', newGame);
+
+
+function resetAllData() {
+    xPoints = 0;
+    oPoints = 0;
+    dPoints = 0;
+    xScore.innerHTML = xPoints;
+    oScore.innerHTML = oPoints;
+    dScore.innerHTML = dPoints;
+    options = ["", "", "", "", "", "", "", "", ""];
+    history = [];
+    nextContainer = [];
+    previousContainer = [];
+    toggleDisplay(prevNextBtnContainer)
+    nextBtn.classList.remove("show")
+    previousBtn.classList.add("show")
+    historyContainer.innerHTML = "<p>History</p>"
+    cells.forEach(cell => cell.className = "cell");
+
 }
 
 function cellClicked(e){
@@ -88,10 +147,10 @@ function cellClicked(e){
 
     function previousMove() {
         if (nextContainer.length == 1) {
-            previousBtn.style.display = "none"
+            previousBtn.classList.remove("show")
         }
         if (nextContainer.length > 0) {
-            nextBtn.style.display = "inline" 
+            nextBtn.classList.add("show")
             let lastNext = nextContainer.pop()
             previousContainer.push(lastNext)
             document.querySelector(`[cellindex="${lastNext["position"]}"]`).classList.remove(lastNext["symbol"])
@@ -102,10 +161,10 @@ function cellClicked(e){
 
     function nextMove() {
         if (previousContainer.length == 1) {
-            nextBtn.style.display = "none"
+            nextBtn.classList.remove("show")
         }
         if (previousContainer.length > 0) {
-            previousBtn.style.display = "inline" 
+            previousBtn.classList.add("show")
             let lastPrev = previousContainer.pop()
             nextContainer.push(lastPrev);
             document.querySelector(`[cellindex="${lastPrev["position"]}"]`).classList.add(lastPrev["symbol"])
@@ -151,7 +210,7 @@ function cellClicked(e){
         if(roundWon){
             statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()} wins!`;
             running = false;
-            prevNextBtnContainer.style.display = "block"
+            toggleDisplay(prevNextBtnContainer)
 
             if(circleTurn){
                 oPoints++
@@ -166,7 +225,7 @@ function cellClicked(e){
         else if(!options.includes("")){
             statusText.textContent = `Draw!`;
             running = false;
-            prevNextBtnContainer.style.display = "block"
+            toggleDisplay(prevNextBtnContainer)
             dPoints++
             dScore.innerHTML = dPoints
         }
@@ -174,26 +233,3 @@ function cellClicked(e){
             swapTurns();
         }
     }
-
-    //ito lang nadagdag sa JS//
-    function newGame() {  
-        resetAllData();
-        history = [];
-        historyContainer.innerHTML = "<p>History</p>";
-        initializeGame();
-    }
-    
-  
-    const newGameBtn = document.getElementById('newGameBtn');
-    newGameBtn.addEventListener('click', newGame);
-    
-
-    function resetAllData() {
-        xPoints = 0;
-        oPoints = 0;
-        dPoints = 0;
-        xScore.innerHTML = xPoints;
-        oScore.innerHTML = oPoints;
-        dScore.innerHTML = dPoints;
-    }
-    
