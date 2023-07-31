@@ -175,7 +175,25 @@ function cellClicked(e){
         }
     }
 
+    //ito lang nadagdag sa JS//
+    function newGame() {  
+        resetAllData();
+        history = [];
+        historyContainer.innerHTML = "<p>History</p>";
+        initializeGame();
+    }
+    
+  
+    const newGameBtn = document.getElementById('newGameBtn');
+    newGameBtn.addEventListener('click', newGame);
+    
 
-
-
-
+    function resetAllData() {
+        xPoints = 0;
+        oPoints = 0;
+        dPoints = 0;
+        xScore.innerHTML = xPoints;
+        oScore.innerHTML = oPoints;
+        dScore.innerHTML = dPoints;
+    }
+    
