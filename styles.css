@@ -138,9 +138,6 @@ body {
   }
   
 h1 {
-    /* font-size: 32px;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); */
     position: relative;
     font-size: 32px;
     color: #222;
@@ -204,7 +201,6 @@ h2#statusText {
     display: inline-block;
     font-size: 18px;
     padding: 8px 16px;
-    /* background-color: #4caf50; */
     color: white;
     border: none;
     text-decoration: none;
@@ -244,7 +240,6 @@ h2#statusText {
     position: relative;
     font-size: 16px;
     padding: 8px 12px;
-    /* background-color: #2196f3; */
     color: white;
     border: none;
     cursor: pointer;
@@ -268,7 +263,6 @@ h2#statusText {
     display: inline-block;
     font-size: 18px;
     padding: 8px 16px;
-    /* background-color: #ff5722; */
     color: white;
     border: none;
     text-decoration: none;
@@ -432,7 +426,7 @@ h2#statusText {
   display: none;
   text-align: center;
   background: #111;
-  margin-top: 20px;
+  margin-top: 15px;
   height: 70px;
   width: 220px;
   border-radius: 50px;
@@ -487,4 +481,43 @@ h2#statusText {
 }
 .startG.show {
   display: block;
+}
+
+.xPlayer, .oPlayer {
+  font-size: 15rem;
+  cursor: pointer;
+}
+
+.xPlayer:hover {
+  text-shadow: -7px 7px 10px gray, -7px 7px 10px gray;
+}
+
+.oPlayer:hover {
+  text-shadow: 7px 7px 10px gray, 7px -7px 10px gray;
+}
+
+#modal h2 {
+  font-size: 60px;
+}
+
+h3 {
+  letter-spacing: 1px;
+  -webkit-box-reflect: below 1px linear-gradient(transparent , #0004);
+  line-height: .70em;
+  outline: none;
+  animation: blinking 3s linear infinite;
+}
+@keyframes blinking {
+  0%,18%,20%,50.1%,60%,65.1%,88%,90.1%,92% {
+    color: rgb(161, 159, 159);
+    text-shadow: none;
+  }
+  18.1%,20.1%,30%,50%,60.1%,65%,80.1%,90%,92.1%,100% {
+    color: #f1e8e8;
+    text-shadow: 0 0 10px rgb(241, 235, 235),
+                0 0 20px rgb(241, 235, 235),
+                0 0 40px rgb(241, 235, 235),
+                0 0 80px rgb(241, 235, 235),
+                0 0 160px rgb(241, 235, 235);
+  }
 }

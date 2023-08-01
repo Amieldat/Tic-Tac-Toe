@@ -6,6 +6,7 @@ const resetBtn = document.querySelector("#resetBtn");
 const prevNextBtnContainer = document.getElementById('prevNextBtnContainer');
 const previousBtn = document.querySelector("#previousBtn");
 const nextBtn = document.querySelector("#nextBtn");
+
 const winConditions = [
     [0, 1, 2],
     [3, 4, 5],
@@ -16,12 +17,15 @@ const winConditions = [
     [0, 4, 8],
     [2, 4, 6]
 ];
+
 let options = ["", "", "", "", "", "", "", "", ""];
 let running = false
 const X_CLASS = 'x'
 const O_CLASS = 'o'
 let circleTurn
+
 const playSound = new Audio("sounds/click-sound.wav");
+
 const xScore = document.querySelector(".x-score");
 const oScore = document.querySelector(".o-score");
 const dScore = document.querySelector(".d-score");
@@ -29,6 +33,7 @@ let xPoints = 0
 let oPoints = 0
 let dPoints = 0
 let history = [];
+
 const positions = {
     "0": "top left",
     "1": "top center",
@@ -40,8 +45,10 @@ const positions = {
     "7": "bottom center",
     "8": "bottom right"
 };
+
 let previousContainer = [];
 let nextContainer = [];
+
 const modal = document.getElementById("modal")
 const xPlayer = document.querySelector(".xPlayer")
 const oPlayer = document.querySelector(".oPlayer")
@@ -68,11 +75,12 @@ modal.addEventListener("click", function(e) {
 function initializeGame(isO) {
     circleTurn = isO
     cells.forEach(cell => cell.addEventListener("click", cellClicked, {once: true}))
-    statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
+    statusText.textContent = `Player ${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
     resetBtn.addEventListener("click", resetGame);
     running = true;
     setBoardHoverClass()
 }
+
 
 function resetGame(){
     options = ["", "", "", "", "", "", "", "", ""];
@@ -83,11 +91,12 @@ function resetGame(){
     nextBtn.classList.remove("show")
     previousBtn.classList.add("show")
     historyContainer.innerHTML = "<p>History</p>"
-    statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
+    statusText.textContent = `Player ${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
     cells.forEach(cell => cell.className = "cell");
     cells.forEach(cell => cell.addEventListener("click", cellClicked, {once: true}))
     running = true;
 }
+
 
 function newGame() {  
     resetAllData();
@@ -95,6 +104,7 @@ function newGame() {
     modal.classList.add("show")
     startGame.classList.remove("show")
 }
+
 
 function toggleDisplay(element) {
    if (!element.classList.contains("show") && !running) {
@@ -137,6 +147,7 @@ function cellClicked(e){
     setBoardHoverClass()
 }
 
+
     function updateCell(cell, currentClass) {
         cell.classList.add(currentClass)
         options[cell.getAttribute("cellindex")] = currentClass
@@ -144,6 +155,7 @@ function cellClicked(e){
         historyContainer.innerHTML += `<p class="history-item-${currentClass}-${cell.getAttribute("cellindex")}">${currentClass} - ${positions[cell.getAttribute("cellindex")]}</p>`
         nextContainer.push({symbol: currentClass, position: cell.getAttribute("cellindex")});
     }
+
 
     function previousMove() {
         if (nextContainer.length == 1) {
@@ -159,6 +171,7 @@ function cellClicked(e){
     }
     previousBtn.addEventListener("click", previousMove);
 
+
     function nextMove() {
         if (previousContainer.length == 1) {
             nextBtn.classList.remove("show")
@@ -173,11 +186,13 @@ function cellClicked(e){
     }
     nextBtn.addEventListener("click", nextMove);
 
+
     function swapTurns() {
         circleTurn = !circleTurn
-        statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
+        statusText.textContent = `Player ${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()}'s turn`;
         playSound.play()
     }
+
 
     function setBoardHoverClass() {
         board.classList.remove(X_CLASS)
@@ -189,9 +204,10 @@ function cellClicked(e){
         }
     }
 
+
     function checkWinner(){
         let roundWon = false;
-    
+
         for(let i = 0; i < winConditions.length; i++){
             const condition = winConditions[i];
             const cellA = options[condition[0]];
@@ -206,9 +222,8 @@ function cellClicked(e){
                 break;
             }
         }
-    
         if(roundWon){
-            statusText.textContent = `${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()} wins!`;
+            statusText.textContent = `🚀Player ${circleTurn ? O_CLASS.toUpperCase() : X_CLASS.toUpperCase()} wins!🚀`;
             running = false;
             toggleDisplay(prevNextBtnContainer)
 
@@ -219,11 +234,10 @@ function cellClicked(e){
             else {
                 xPoints++
                 xScore.innerHTML = xPoints
-            
             }
         }
         else if(!options.includes("")){
-            statusText.textContent = `Draw!`;
+            statusText.textContent = `It's a Draw!`;
             running = false;
             toggleDisplay(prevNextBtnContainer)
             dPoints++
