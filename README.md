@@ -1,6 +1,6 @@
 # Front-End Activity: Tic Tac Toe Game
 
-Welcome to the Tic Tac Toe game! This is a simple web-based implementation of the classic Tic Tac Toe, also known as Noughts and Crosses. The game is built using HTML, CSS, and JavaScript, and it allows you to challenge your friends or test your strategic skills against an AI opponent.
+Welcome to the Tic Tac Toe game! This is a simple web-based implementation of the classic Tic Tac Toe, also known as Noughts and Crosses. The game is built using HTML, CSS, and JavaScript, and it allows you to challenge your friends and family. 
 
 # How to Play
 
